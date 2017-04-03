@@ -26,9 +26,10 @@ import javax.inject.Named;
 public class UserController {
     private List<Users> users = new ArrayList<>();
     private Users thisUser = new Users();
+    private static UserController instance = new UserController();
     
     public UserController() {
-        try {
+        /*try {
             Connection conn = DBUtils.getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM users");
@@ -45,7 +46,74 @@ public class UserController {
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+        getUsersFromDB();
+        instance = this;
+    }
+    
+    private void getUsersFromDB() {
+        try (Connection conn = DBUtils.getConnection()) {
+            users = new ArrayList<>();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM users");
+            while (rs.next()) {
+                Users u = new Users(rs.getInt("id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("email"),
+                        rs.getString("name"),
+                        rs.getDouble("height"),
+                        rs.getDouble("weight"));
+                users.add(u);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            users = new ArrayList<>();
         }
+    }
+    
+    public List<Users> getUsers() {
+        return users;
+    }
+    
+    public static UserController getInstance() {
+        return instance;
+    }
+    public String getUsernameById(int id) {
+        for (Users u : users) {
+            if (u.getId() == id) {
+                return u.getUsername();
+            }
+        }
+        return null;
+    }
+    
+    public int getUserIdByUsername(String username) {
+        for (Users u : users) {
+            if (u.getUsername().equals(username)) {
+                return u.getId();
+            }
+        }
+        return -1;
+    }
+
+    public void addUser(String username, String password, String email, String name, double height, double weight) {
+        try (Connection conn = DBUtils.getConnection()) {
+            String passhash = DBUtils.hash(password);
+            String sql = "INSERT INTO users (username, passhash, email, name, height, weight) VALUES(?,?,?,?,?,?)";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, username);
+            pstmt.setString(2, passhash);
+            pstmt.setString(3, email);
+            pstmt.setString(4, name);
+            pstmt.setDouble(5, height);
+            pstmt.setDouble(6, weight);
+            pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        getUsersFromDB();
     }
     
 }
