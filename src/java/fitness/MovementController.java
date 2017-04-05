@@ -58,7 +58,7 @@ public class MovementController {
     public void setThisMovement(Movements thisMovement) {
         this.thisMovement = thisMovement;
     }
-    public String addUser() {
+    public String addMovement() {
         try (Connection conn = DBUtils.getConnection()) {
             String sql = "INSERT INTO movements (movementName) VALUES(?)";
             PreparedStatement pstmt = conn.prepareStatement(sql);

@@ -26,9 +26,11 @@ import javax.inject.Named;
 public class WorkoutController {
     private List<Workouts> workouts = new ArrayList<>();
     private Workouts thisWorkout = new Workouts();
+    private static WorkoutController instance = new WorkoutController();
     
     public WorkoutController(){
         getWorkoutsFromDB();
+        instance = this;
     }
     
     private void getWorkoutsFromDB() {
@@ -54,12 +56,17 @@ public class WorkoutController {
         return workouts;
     }
 
+    
+    public static WorkoutController getInstance() {
+        return instance;
+    }
     public Workouts getCurrentWorkout(){
         return thisWorkout;
     }
     public void setCurrentWorkout(Workouts currentWorkout){
         this.thisWorkout = currentWorkout;
     }
+    
     public String viewWorkout(Workouts workout) {
         thisWorkout = workout;
         return "viewWorkout";
@@ -80,7 +87,7 @@ public class WorkoutController {
         thisWorkout = getWorkoutById(id);
         return "viewPost";
     }
-    
+        
     public String saveWorkout(Users user) {
         try (Connection conn = DBUtils.getConnection()) {
             // If there's a current post, update rather than insert
@@ -131,7 +138,7 @@ public class WorkoutController {
     
     public Workouts getWorkoutsByUserId(int userId) {
         for (Workouts w : workouts) {
-            if (w.getWorkoutName().equals(userId)) {
+            if (w.getUserId() == userId) {
                 return w;
             }
         }

@@ -66,6 +66,12 @@ public class Login implements Serializable {
         }
         currentUser = null;
         loggedIn = false;
+        return "logIn";
+    }
+    
+    public String logout() {
+        currentUser = null;
+        loggedIn = false;
         return "index";
     }
 
