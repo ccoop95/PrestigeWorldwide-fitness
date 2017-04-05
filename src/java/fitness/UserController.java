@@ -26,9 +26,11 @@ import javax.inject.Named;
 public class UserController {
     private List<Users> users = new ArrayList<>();
     private Users thisUser = new Users();
+    private static UserController instance = new UserController();
     
     public UserController(){
         getUsersFromDB();
+        instance = this;
     }
     
     private void getUsersFromDB() {
@@ -55,6 +57,55 @@ public class UserController {
     }
     public List<Users> getUsers() {
         return users;
+    }
+    
+    public static UserController getInstance() {
+        return instance;
+    }
+    
+    public Users getThisUser() {
+        return thisUser;
+    }
+    
+    public void setThisUser(Users thisUser) {
+        this.thisUser = thisUser;
+    }
+    
+    public String getUsernameById(int id) {
+        for (Users u : users) {
+            if (u.getId() == id) {
+                return u.getUsername();
+            }
+        }
+        return null;
+    }
+    
+    public int getUserIdByUsername(String username) {
+        for (Users u : users) {
+            if (u.getUsername().equals(username)) {
+                return u.getId();
+            }
+        }
+        return -1;
+    }
+    
+    public void addUser() {
+        try (Connection conn = DBUtils.getConnection()) {
+            String passhash = DBUtils.hash(thisUser.password);
+            String sql = "INSERT INTO users (username, password, email, firstName, lastName, height, weight) VALUES(?,?,?,?,?,?,?)";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, thisUser.username);
+            pstmt.setString(2, passhash);
+            pstmt.setString(3, thisUser.email);
+            pstmt.setString(4, thisUser.firstName);
+            pstmt.setString(5, thisUser.lastName);
+            pstmt.setDouble(6, thisUser.height);
+            pstmt.setDouble(7, thisUser.weight);
+            pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        getUsersFromDB();
     }
 }
 /*
