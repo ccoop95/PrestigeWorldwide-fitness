@@ -57,13 +57,14 @@ public class UserController {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM users");
             while (rs.next()) {
-                Users u = new Users(rs.getInt("id"),
-                        rs.getString("username"),
-                        rs.getString("password"),
-                        rs.getString("email"),
-                        rs.getString("name"),
-                        rs.getDouble("height"),
-                        rs.getDouble("weight"));
+                Users u = new Users();
+                u.setId(rs.getInt("UserId"));
+                u.setUsername(rs.getString("Username"));
+                u.setPassword(rs.getString("Password"));
+                u.setEmail(rs.getString("Email"));
+                u.setName(rs.getString("Name"));
+                u.setHeight(rs.getDouble("Height"));
+                u.setWeight(rs.getDouble("Weight"));
                 users.add(u);
             }
 

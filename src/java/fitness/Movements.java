@@ -29,11 +29,11 @@ public class Movements {
         this.id = id;
     }
 
-    public String getName() {
+    public String getMovementName() {
         return movementName;
     }
 
-    public void setName(String name) {
+    public void setMovementName(String name) {
         this.movementName = name;
     }
 }

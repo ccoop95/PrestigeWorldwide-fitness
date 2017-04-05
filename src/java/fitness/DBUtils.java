@@ -53,9 +53,31 @@ public class DBUtils {
         String username = "root";
         String password = "muttonchops987";
         String jdbc = String.format("jdbc:mysql://%s/fitness", server);
-       // return DriverManager.getConnection(jdbc, username, password);
-        return DriverManager.getConnection("jdbc:mysql://35.185.105.230:3306/fitness?zeroDateTimeBehavior=convertToNull", username, password);
-        /*return DriverManager.getConnection("jdbc:mysql://35.185.105.230/fitness?" +
-                                   "user=root&password=muttonchops987");*/
+        return DriverManager.getConnection(jdbc, username, password);
+        //return DriverManager.getConnection("jdbc:mysql://35.185.105.230:3306/fitness?zeroDateTimeBehavior=convertToNull", username, password);
+        //return DriverManager.getConnection("jdbc:mysql://35.185.105.230/fitness?" +
+            //                       "user=root&password=muttonchops987");
     }
+    
+    //private final static String studentNumber = "c0659824";
+
+    /**
+     * Utility method used to create a Database Connection
+     *
+     * @return the Connection object
+     * @throws SQLException
+     */
+   /* public static Connection getConnection() throws SQLException {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DBUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String server = "ipro.lambton.on.ca";
+        String username = studentNumber + "-java";
+        String password = studentNumber;
+        String database = username;
+        String jdbc = String.format("jdbc:mysql://%s/%s", server, database);
+        return DriverManager.getConnection(jdbc, username, password);
+    }*/
 }

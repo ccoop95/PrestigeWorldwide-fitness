@@ -14,11 +14,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
 
 /**
  *
  * @author c0659824
  */
+@Named
+@ApplicationScoped
 public class WorkoutController {
     private List<Workouts> workouts = new ArrayList<>();
     private Workouts thisWorkout = new Workouts();
@@ -33,11 +37,12 @@ public class WorkoutController {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM workouts");
             while (rs.next()) {
-                Workouts w = new Workouts(rs.getInt("id"),
-                        rs.getString("workoutName"),
-                        rs.getString("category"),
-                        rs.getString("description"),
-                        rs.getInt("userId"));
+                Workouts w = new Workouts();
+                w.setId(rs.getInt("id"));
+                w.setName(rs.getString("name"));
+                w.setDescription(rs.getString("description"));
+                w.setCategory(rs.getString("category"));
+                w.setUserId(rs.getInt("userId"));
                 workouts.add(w);
             }
 

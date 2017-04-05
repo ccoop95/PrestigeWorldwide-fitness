@@ -11,12 +11,64 @@
             <h:dataTable value="#{movementController.movements}" var="m">
             <h:column>
                 <f:facet name="header">ID</f:facet>
-                    #{m.id}
+                    <p>#{m.id}</p>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Movement Name</f:facet>
+                <p>#{m.movementName}</p>
+            </h:column>            
+        </h:dataTable>
+        </h:form>
+        <h:form>
+            <h:dataTable value="#{userController.users}" var="u">
+            <h:column>
+                <f:facet name="header">ID</f:facet>
+                    <p>#{u.id}</p>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Username</f:facet>
+                <p>#{u.username}</p>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Password</f:facet>
+                <p>#{u.password}</p>
             </h:column>
             <h:column>
                 <f:facet name="header">Name</f:facet>
-                    #{m.movementName}
-            </h:column>            
+                <p>#{u.name}</p>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Height</f:facet>
+                <p>#{u.height}</p>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Weight</f:facet>
+                <p>#{u.Weight}</p>
+            </h:column>
+        </h:dataTable>
+        </h:form>
+        <h:form>
+            <h:dataTable value="#{workoutController.workouts}" var="w">
+            <h:column>
+                <f:facet name="header">ID</f:facet>
+                    <p>#{w.id}</p>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                <p>#{w.name}</p>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Category</f:facet>
+                <p>#{w.category}</p>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Description</f:facet>
+                <p>#{w.description}</p>
+            </h:column>
+            <h:column>
+                <f:facet name="header">UserID</f:facet>
+                <p>#{w.userId}</p>
+            </h:column>
         </h:dataTable>
         </h:form>
     </h:body>
