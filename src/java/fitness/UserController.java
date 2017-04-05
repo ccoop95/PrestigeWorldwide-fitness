@@ -89,7 +89,7 @@ public class UserController {
         return -1;
     }
     
-    public void addUser() {
+    public String addUser() {
         try (Connection conn = DBUtils.getConnection()) {
             String passhash = DBUtils.hash(thisUser.password);
             String sql = "INSERT INTO users (username, password, email, firstName, lastName, height, weight) VALUES(?,?,?,?,?,?,?)";
@@ -106,6 +106,7 @@ public class UserController {
             Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
         }
         getUsersFromDB();
+        return "testing";
     }
 }
 /*

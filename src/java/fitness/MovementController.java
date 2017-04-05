@@ -6,6 +6,7 @@
 package fitness;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -48,5 +49,25 @@ public class MovementController {
     }
     public List<Movements> getMovements() {
         return movements;
+    }
+    
+     public Movements getThisMovement() {
+        return thisMovement;
+    }
+    
+    public void setThisMovement(Movements thisMovement) {
+        this.thisMovement = thisMovement;
+    }
+    public String addUser() {
+        try (Connection conn = DBUtils.getConnection()) {
+            String sql = "INSERT INTO movements (movementName) VALUES(?)";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, thisMovement.movementName);
+            pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        getMovementsFromDB();
+        return "testing";
     }
 }

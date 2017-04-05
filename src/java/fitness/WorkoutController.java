@@ -28,10 +28,10 @@ public class WorkoutController {
     private Workouts thisWorkout = new Workouts();
     
     public WorkoutController(){
-        getUsersFromDB();
+        getWorkoutsFromDB();
     }
     
-    private void getUsersFromDB() {
+    private void getWorkoutsFromDB() {
         try (Connection conn = DBUtils.getConnection()) {
             workouts = new ArrayList<>();
             Statement stmt = conn.createStatement();
@@ -53,7 +53,7 @@ public class WorkoutController {
     public List<Workouts> getWorkouts() {
         return workouts;
     }
-}/*
+
     public Workouts getCurrentWorkout(){
         return thisWorkout;
     }
@@ -87,7 +87,7 @@ public class WorkoutController {
             if (thisWorkout.getId() >= 0) {
                 String sql = "UPDATE workouts SET workoutName = ?, category = ?, description = ?, userId= ?, where id = ?";
                 PreparedStatement pstmt = conn.prepareStatement(sql);
-                pstmt.setString(1, thisWorkout.getName());
+                pstmt.setString(1, thisWorkout.getWorkoutName());
                 pstmt.setString(2, thisWorkout.getCategory());
                 pstmt.setString(3, thisWorkout.getDescription());
                 pstmt.setInt(4, thisWorkout.getUserId());
@@ -96,7 +96,7 @@ public class WorkoutController {
             } else {
                 String sql = "INSERT INTO posts (workoutName, category, descrption, userId) VALUES (?,?,?,?)";
                 PreparedStatement pstmt = conn.prepareStatement(sql);
-                pstmt.setString(1, thisWorkout.getName());
+                pstmt.setString(1, thisWorkout.getWorkoutName());
                 pstmt.setString(2, thisWorkout.getCategory());
                 pstmt.setString(3, thisWorkout.getDescription());
                 pstmt.setInt(4, user.getId());
@@ -107,7 +107,7 @@ public class WorkoutController {
         }
         getWorkoutsFromDB();
         // Update the currentPost so that its details appear after navigation
-        thisWorkout = getWorkoutByTitle(thisWorkout.getName());
+        thisWorkout = getWorkoutByTitle(thisWorkout.getWorkoutName());
         return "viewWorkout";
     }
     
@@ -122,11 +122,19 @@ public class WorkoutController {
     
     public Workouts getWorkoutByTitle(String name) {
         for (Workouts w : workouts) {
-            if (w.getName().equals(name)) {
+            if (w.getWorkoutName().equals(name)) {
+                return w;
+            }
+        }
+        return null;
+    }
+    
+    public Workouts getWorkoutsByUserId(int userId) {
+        for (Workouts w : workouts) {
+            if (w.getWorkoutName().equals(userId)) {
                 return w;
             }
         }
         return null;
     }
 }
-*/
