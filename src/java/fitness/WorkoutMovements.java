@@ -11,20 +11,20 @@ package fitness;
  */
 public class WorkoutMovements {
     int movementId;
-    int workoutId;
-    int wSets;
-    int wReps;
+    int sets;
+    int reps;
     double weight;
+    int workoutId;
 
     public WorkoutMovements() {
     }
 
-    public WorkoutMovements(int movementId, int workoutId, int wSets, int wReps, double weight) {
+    public WorkoutMovements(int movementId, int sets, int reps, double weight, int workoutId) {
         this.movementId = movementId;
-        this.workoutId = workoutId;
-        this.wSets = wSets;
-        this.wReps = wReps;
+        this.sets = sets;
+        this.reps = reps;
         this.weight = weight;
+        this.workoutId = workoutId;
     }
 
     public int getMovementId() {
@@ -35,28 +35,20 @@ public class WorkoutMovements {
         this.movementId = movementId;
     }
 
-    public int getWorkoutId() {
-        return workoutId;
+    public int getSets() {
+        return sets;
     }
 
-    public void setWorkoutId(int workoutId) {
-        this.workoutId = workoutId;
+    public void setSets(int sets) {
+        this.sets = sets;
     }
 
-    public int getwSets() {
-        return wSets;
+    public int getReps() {
+        return reps;
     }
 
-    public void setwSets(int wSets) {
-        this.wSets = wSets;
-    }
-
-    public int getwReps() {
-        return wReps;
-    }
-
-    public void setwReps(int wReps) {
-        this.wReps = wReps;
+    public void setReps(int reps) {
+        this.reps = reps;
     }
 
     public double getWeight() {
@@ -66,6 +58,13 @@ public class WorkoutMovements {
     public void setWeight(double weight) {
         this.weight = weight;
     }
-    
-    
+
+    public int getWorkoutId() {
+        return workoutId;
+    }
+
+    public void setWorkoutId(int workoutId) {
+        this.workoutId = workoutId;
+    }
+
 }

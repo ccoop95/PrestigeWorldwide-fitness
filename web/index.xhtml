@@ -71,6 +71,30 @@
             </h:column>
         </h:dataTable>
         </h:form>
+        <h:form>
+            <h:dataTable value="#{workoutMovementController.workoutMovements}" var="wm">
+            <h:column>
+                <f:facet name="header">Movement Id</f:facet>
+                    <p>#{wm.movementId}</p>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Sets</f:facet>
+                <p>#{wm.sets}</p>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Reps</f:facet>
+                <p>#{wm.reps}</p>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Weight</f:facet>
+                <p>#{wm.weight}</p>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Workout Id</f:facet>
+                <p>#{wm.workoutId}</p>
+            </h:column>
+        </h:dataTable>
+        </h:form>
     </h:body>
 </html>
 
