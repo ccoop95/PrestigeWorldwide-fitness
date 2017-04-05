@@ -14,19 +14,21 @@ public class Users {
     String username;
     String email;
     String password;
-    String name;
+    String firstName;
+    String lastName;
     double height;
     double weight;
 
     public Users() {
     }
 
-    public Users(int id, String username, String email, String password, String name, double height, double weight) {
+    public Users(int id, String username, String email, String password, String firstName, String lastName, double height, double weight) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.height = height;
         this.weight = weight;
     }
@@ -63,12 +65,20 @@ public class Users {
         this.password = password;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public double getHeight() {
@@ -86,4 +96,5 @@ public class Users {
     public void setWeight(double weight) {
         this.weight = weight;
     }
+    
 }

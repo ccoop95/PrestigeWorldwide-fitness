@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fitness;
+/*package fitness;
 
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-
+*/
 /**
  *
  * @author c0659824
  */
-@Named
+/*@Named
 @SessionScoped
 public class Login implements Serializable {
 
@@ -70,3 +70,4 @@ public class Login implements Serializable {
     }
 
 }
+*/

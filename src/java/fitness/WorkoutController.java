@@ -28,10 +28,10 @@ public class WorkoutController {
     private Workouts thisWorkout = new Workouts();
     
     public WorkoutController(){
-        getWorkoutsFromDB();
+        getUsersFromDB();
     }
     
-    private void getWorkoutsFromDB() {
+    private void getUsersFromDB() {
         try (Connection conn = DBUtils.getConnection()) {
             workouts = new ArrayList<>();
             Statement stmt = conn.createStatement();
@@ -39,22 +39,21 @@ public class WorkoutController {
             while (rs.next()) {
                 Workouts w = new Workouts();
                 w.setId(rs.getInt("id"));
-                w.setName(rs.getString("name"));
-                w.setDescription(rs.getString("description"));
+                w.setWorkoutName(rs.getString("workoutName"));
                 w.setCategory(rs.getString("category"));
+                w.setDescription(rs.getString("description"));
                 w.setUserId(rs.getInt("userId"));
                 workouts.add(w);
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(WorkoutController.class.getName()).log(Level.SEVERE, null, ex);
             workouts = new ArrayList<>();
         }
     }
-    
-    public List<Workouts> getWorkouts(){
+    public List<Workouts> getWorkouts() {
         return workouts;
     }
+}/*
     public Workouts getCurrentWorkout(){
         return thisWorkout;
     }
@@ -130,3 +129,4 @@ public class WorkoutController {
         return null;
     }
 }
+*/

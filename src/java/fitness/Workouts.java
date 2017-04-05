@@ -11,7 +11,7 @@ package fitness;
  */
 public class Workouts {
     int id;
-    String name;
+    String workoutName;
     String description;
     String category;
     int userId;
@@ -21,7 +21,7 @@ public class Workouts {
 
     public Workouts(int id, String name, String description, String category, int userId) {
         this.id = id;
-        this.name = name;
+        this.workoutName = name;
         this.description = description;
         this.category = category;
         this.userId = userId;
@@ -35,12 +35,12 @@ public class Workouts {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getWorkoutName() {
+        return workoutName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setWorkoutName(String name) {
+        this.workoutName = name;
     }
 
     public String getDescription() {

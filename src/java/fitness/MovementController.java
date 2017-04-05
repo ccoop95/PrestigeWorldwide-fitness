@@ -35,18 +35,12 @@ public class MovementController {
             movements = new ArrayList<>();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM movements");
-           /* while (rs.next()) {
-                Movements m = new Movements(rs.getInt("id"),
-                        rs.getString("movementName"));
-                movements.add(m);
-            }*/
             while (rs.next()) {
                 Movements m = new Movements();
                 m.setId(rs.getInt("id"));
                 m.setMovementName(rs.getString("movementName"));
                 movements.add(m);
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(MovementController.class.getName()).log(Level.SEVERE, null, ex);
             movements = new ArrayList<>();

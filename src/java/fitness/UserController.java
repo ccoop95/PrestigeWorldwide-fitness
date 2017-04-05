@@ -26,29 +26,9 @@ import javax.inject.Named;
 public class UserController {
     private List<Users> users = new ArrayList<>();
     private Users thisUser = new Users();
-    private static UserController instance = new UserController();
     
-    public UserController() {
-        /*try {
-            Connection conn = DBUtils.getConnection();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM users");
-            while (rs.next()) {
-                Users u = new Users();
-                u.setId(rs.getInt("UserId"));
-                u.setUsername(rs.getString("Username"));
-                u.setPassword(rs.getString("Password"));
-                u.setEmail(rs.getString("Email"));
-                u.setName(rs.getString("Name"));
-                u.setHeight(rs.getDouble("Height"));
-                u.setWeight(rs.getDouble("Weight"));
-                users.add(u);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+    public UserController(){
         getUsersFromDB();
-        instance = this;
     }
     
     private void getUsersFromDB() {
@@ -58,47 +38,26 @@ public class UserController {
             ResultSet rs = stmt.executeQuery("SELECT * FROM users");
             while (rs.next()) {
                 Users u = new Users();
-                u.setId(rs.getInt("UserId"));
-                u.setUsername(rs.getString("Username"));
-                u.setPassword(rs.getString("Password"));
-                u.setEmail(rs.getString("Email"));
-                u.setName(rs.getString("Name"));
-                u.setHeight(rs.getDouble("Height"));
-                u.setWeight(rs.getDouble("Weight"));
+                u.setId(rs.getInt("id"));
+                u.setUsername(rs.getString("username"));
+                u.setPassword(rs.getString("password"));
+                u.setEmail(rs.getString("email"));
+                u.setFirstName(rs.getString("firstName"));
+                u.setLastName(rs.getString("lastName"));
+                u.setHeight(rs.getDouble("height"));
+                u.setWeight(rs.getDouble("weight"));
                 users.add(u);
             }
-
         } catch (SQLException ex) {
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MovementController.class.getName()).log(Level.SEVERE, null, ex);
             users = new ArrayList<>();
         }
     }
-    
     public List<Users> getUsers() {
         return users;
     }
-    
-    public static UserController getInstance() {
-        return instance;
-    }
-    public String getUsernameById(int id) {
-        for (Users u : users) {
-            if (u.getId() == id) {
-                return u.getUsername();
-            }
-        }
-        return null;
-    }
-    
-    public int getUserIdByUsername(String username) {
-        for (Users u : users) {
-            if (u.getUsername().equals(username)) {
-                return u.getId();
-            }
-        }
-        return -1;
-    }
-
+}
+/*
     public void addUser(String username, String password, String email, String name, double height, double weight) {
         try (Connection conn = DBUtils.getConnection()) {
             String passhash = DBUtils.hash(password);
@@ -116,5 +75,4 @@ public class UserController {
         }
         getUsersFromDB();
     }
-    
-}
+*/
