@@ -53,8 +53,8 @@ public class DBUtils {
         String username = "root";
         String password = "muttonchops987";
         String jdbc = String.format("jdbc:mysql://%s/fitness", server);
-        return DriverManager.getConnection(jdbc, username, password);
-        //return DriverManager.getConnection("jdbc:mysql://35.185.105.230:3306/fitness?zeroDateTimeBehavior=convertToNull", username, password);
+        //return DriverManager.getConnection(jdbc, username, password);
+        return DriverManager.getConnection("jdbc:mysql://35.185.105.230:3306/fitness?zeroDateTimeBehavior=convertToNull", username, password);
         //return DriverManager.getConnection("jdbc:mysql://35.185.105.230/fitness?" +
             //                       "user=root&password=muttonchops987");
     }

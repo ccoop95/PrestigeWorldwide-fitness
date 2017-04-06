@@ -9,11 +9,14 @@
     </h:head>
     <h:body>
         <c:if test="#{login.loggedIn}">
-            <p>Welcome #{login.currentUser.username}</p>
+            #{userController.setThisUser(login.currentUser)}
+            <p>Welcome #{userController.thisUser.username} your user id is #{userController.thisUser.id}</p>
+            
                  <h:button value="Add New Movement" outcome="addMovement" />
                  <div id="logout"><h:button value="Logout" outcome="#{login.logout()}" /></div>
                  <h:form>
-                     <h:dataTable value="#{workoutController.getWorkoutsByUserId(login.currentUser.id)}" var="w">
+                     <c:set var="userId" value="#{login.currentUser.id}" />
+                     <h:dataTable value="#{workoutController.getMyWorkouts(userController.thisUser.id)}" var="w">
                         <h:column>
                             <f:facet name="header">ID</f:facet>
                                 <p>#{w.id}</p>
