@@ -59,7 +59,31 @@ public class WorkoutMovementController {
         getWorkoutMovementsByWorkoutId(workoutId);
         return movementsInWorkout;
     }
+
+    public void nullMovementsInWorkout(){
+        this.movementsInWorkout = null;
+    }
     
+    
+    private void getWorkoutMovementsByWorkoutId(int id) {
+        try (Connection conn = DBUtils.getConnection()) {
+            movementsInWorkout = new ArrayList<>();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM workoutMovements WHERE workoutId = " + id);
+            while (rs.next()) {
+                WorkoutMovements wm = new WorkoutMovements();
+                wm.setMovementId(rs.getInt("movementId"));
+                wm.setSets(rs.getInt("wSets"));
+                wm.setReps(rs.getInt("wReps"));
+                wm.setWeight(rs.getDouble("weight"));
+                wm.setWorkoutId(rs.getInt("workoutId"));                
+                movementsInWorkout.add(wm);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(WorkoutController.class.getName()).log(Level.SEVERE, null, ex);
+            movementsInWorkout = new ArrayList<>();
+        }
+    }/*
     public void getWorkoutMovementsByWorkoutId(int id){
         try (Connection conn = DBUtils.getConnection()) {
             Statement stmt = conn.createStatement();
@@ -76,7 +100,7 @@ public class WorkoutMovementController {
         } catch (SQLException ex) {
             Logger.getLogger(WorkoutMovementController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    }*/
 
     public WorkoutMovements getThisWorkoutMovement() {
         return thisWorkoutMovement;

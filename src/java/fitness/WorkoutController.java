@@ -74,8 +74,8 @@ public class WorkoutController {
     public void setUserId(int userId){
         thisWorkout.userId = userId;
     }
-    public String viewWorkout(Workouts workout) {
-        thisWorkout = workout;
+    public String viewWorkout(int id) {
+        thisWorkout = getWorkoutById(id);
         return "viewWorkout";
     }
       

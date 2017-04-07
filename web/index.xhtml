@@ -43,6 +43,9 @@
                         <h:column>
                             <h:commandButton value="Add Movements" action="#{workoutController.addMovements(w.id)}"/>
                         </h:column>
+                         <h:column>
+                            <h:commandButton value="View Workout" action="#{workoutController.viewWorkout(w.id)}"/>
+                        </h:column>
                     </h:dataTable>
                 </h:form>
             </c:if>
