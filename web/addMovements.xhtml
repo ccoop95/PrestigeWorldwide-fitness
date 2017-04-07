@@ -12,9 +12,8 @@
             <p>Welcome #{userController.thisUser.username}. Please select the movements you want to add.</p>
             #{workoutMovementController.setWorkoutId(workoutController.thisWorkout.id)}
             <h:form>
-                 <h:selectOneMenu value="#{movementController.thisMovement.id}">
+                 <h:selectOneMenu value="#{workoutMovementController.thisWorkoutMovement.movementId}">
                      <f:selectItems value="#{movementController.movements}" var="m" itemValue="#{m.id}" itemLabel="#{m.movementName}" />
-                    #{workoutMovementController.setMovementId(m.id)}
                 </h:selectOneMenu>
                 <label>Sets<h:inputText value="#{workoutMovementController.thisWorkoutMovement.sets}" /></label>
                 <label>Reps<h:inputText value="#{workoutMovementController.thisWorkoutMovement.reps}" /></label>
