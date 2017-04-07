@@ -13,6 +13,7 @@
             <p>Welcome #{userController.thisUser.username} your user id is #{userController.thisUser.id}</p>
             
                  <h:button value="Add New Movement" outcome="addMovement" />
+                 <h:button value="Add New Workout" outcome="createWorkout" />
                  <div id="logout"><h:button value="Logout" outcome="#{login.logout()}" /></div>
                  <h:form>
                      <c:set var="userId" value="#{login.currentUser.id}" />

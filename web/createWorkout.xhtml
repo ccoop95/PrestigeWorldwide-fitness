@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <c:if test="#{login.loggedIn}">
+            #{userController.setThisUser(login.currentUser)}
+            <p>Welcome #{userController.thisUser.username}. Please Fill out the form to make a workout.</p>
+            <h:form>
+                <p>Workout Name: <h:inputText value="#{workoutController.thisWorkout.workoutName}" /></p>
+                <p>Workout Description: <h:inputSecret value="#{workoutController.thisWorkout.description}" /></p>
+                <p>Workout Category: <h:inputText value="#{workoutController.thisWorkout.category}" /></p>
+                #{workoutController.thisWorkout.userId = userController.thisUser.id}
+                <h:commandButton value="Add Workout" action="#{workoutController.addWorkout()}" />
+            </h:form>
+            </c:if>
+            <c:if test="#{!login.loggedIn}">
+                <h1>Please Login to view this Page</h1>
+                <h:button value="Login" outcome="logIn" />
+            </c:if>
+    </h:body>
+</html>
+

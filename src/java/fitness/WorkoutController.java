@@ -62,14 +62,13 @@ public class WorkoutController {
         return myWorkouts;
     }
 
-    
     public static WorkoutController getInstance() {
         return instance;
     }
-    public Workouts getCurrentWorkout(){
+    public Workouts getThisWorkout(){
         return thisWorkout;
     }
-    public void setCurrentWorkout(Workouts currentWorkout){
+    public void setThisWorkout(Workouts currentWorkout){
         this.thisWorkout = currentWorkout;
     }
     
@@ -77,12 +76,7 @@ public class WorkoutController {
         thisWorkout = workout;
         return "viewWorkout";
     }
-    
-    public String addWorkout() {
-        thisWorkout = new Workouts(-1, "", "", "", -1);
-        return "editWorkot";
-    }
-    
+      
     public String editWorkout(){
         return "editPost";
     }
@@ -93,7 +87,23 @@ public class WorkoutController {
         thisWorkout = getWorkoutById(id);
         return "viewPost";
     }
-        
+    
+    public String addWorkout() {
+        try (Connection conn = DBUtils.getConnection()) {
+            String sql = "INSERT INTO workouts (workoutName, category, description, userId) VALUES(?,?,?,?)";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, thisWorkout.workoutName);
+            pstmt.setString(2, thisWorkout.category);
+            pstmt.setString(3, thisWorkout.description);
+            pstmt.setInt(4, thisWorkout.userId);
+            pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        getWorkoutsFromDB();
+        return "testing";
+    }
+    
     public String saveWorkout(Users user) {
         try (Connection conn = DBUtils.getConnection()) {
             // If there's a current post, update rather than insert
