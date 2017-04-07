@@ -14,7 +14,8 @@
             
                  <h:button value="Add New Movement" outcome="addMovement" />
                  <h:button value="Add New Workout" outcome="createWorkout" />
-                 <div id="logout"><h:button value="Logout" outcome="#{login.logout()}" /></div>
+                 <h:form><h:commandButton value="Logout" action="#{login.logout()}" /></h:form>
+                 
                  <h:form>
                      <c:set var="userId" value="#{login.currentUser.id}" />
                      <h:dataTable value="#{workoutController.getMyWorkouts(userController.thisUser.id)}" var="w">
@@ -44,6 +45,7 @@
             <c:if test="#{!login.loggedIn}">
                 <h1>Please Login to view this Page</h1>
                 <h:button value="Login" outcome="logIn" />
+                <h:button value="Register" outcome="register" />
             </c:if>
     </h:body>
 </html>

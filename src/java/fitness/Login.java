@@ -61,11 +61,13 @@ public class Login implements Serializable {
                     && passhash.equals(u.getPassword())) {
                 loggedIn = true;
                 currentUser = u;
+                //UserController.getInstance().setLoggedIn(true);
                 return "index";
             }
         }
         currentUser = null;
         loggedIn = false;
+        //UserController.getInstance().setLoggedIn(false);
         return "logIn";
     }
     
