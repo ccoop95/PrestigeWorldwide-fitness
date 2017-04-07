@@ -55,6 +55,11 @@ public class WorkoutMovementController {
         return workoutMovements;
     }
     
+    public List<WorkoutMovements> getMovementsInWorkout(int workoutId){
+        getWorkoutMovementsByWorkoutId(workoutId);
+        return movementsInWorkout;
+    }
+    
     public void getWorkoutMovementsByWorkoutId(int id){
         try (Connection conn = DBUtils.getConnection()) {
             Statement stmt = conn.createStatement();
@@ -62,8 +67,8 @@ public class WorkoutMovementController {
             while (rs.next()) {
                 WorkoutMovements wm = new WorkoutMovements();
                 wm.setMovementId(rs.getInt("movementId"));
-                wm.setSets(rs.getInt("sets"));
-                wm.setReps(rs.getInt("reps"));
+                wm.setSets(rs.getInt("wSets"));
+                wm.setReps(rs.getInt("wReps"));
                 wm.setWeight(rs.getDouble("weight"));
                 wm.setWorkoutId(rs.getInt("workoutId"));                
                 movementsInWorkout.add(wm);
