@@ -70,7 +70,16 @@ public class MovementController {
         }
         return thisMovement;
     }
-     
+    
+    public int getMovementIdByName(String name){
+        for (Movements w : movements) {
+            if (w.getMovementName().equals(name)) {
+                return w.id;
+            }
+        }
+        return 0;
+    }
+    
     public void setThisMovement(Movements thisMovement) {
         this.thisMovement = thisMovement;
     }

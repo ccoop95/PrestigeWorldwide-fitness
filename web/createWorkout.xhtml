@@ -11,10 +11,10 @@
         <c:if test="#{login.loggedIn}">
             <p>Welcome #{userController.thisUser.username}. Please Fill out the form to make a workout.</p>
             <h:form>
-                <p>Workout Name: <h:inputText value="#{workoutController.thisWorkout.workoutName}" /></p>
-                <p>Workout Description: <h:inputText value="#{workoutController.thisWorkout.description}" /></p>
-                <p>Workout Category: <h:inputText value="#{workoutController.thisWorkout.category}" /></p>
-                #{workoutController.thisWorkout.userId = userController.thisUser.id}
+                <label>Workout Name: <h:inputText value="#{workoutController.thisWorkout.workoutName}" /></label>
+                <label>Workout Description: <h:inputText value="#{workoutController.thisWorkout.description}" /></label>
+                <label>Workout Category: <h:inputText value="#{workoutController.thisWorkout.category}" /></label>
+                #{workoutController.setUserId(userController.thisUser.id)}
                 <h:commandButton value="Add Workout" action="#{workoutController.addWorkout()}" />
             </h:form>
             </c:if>

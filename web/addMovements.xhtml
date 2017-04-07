@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Add Movements</title>
+    </h:head>
+    <h:body>
+        <c:if test="#{login.loggedIn}">
+            <p>Welcome #{userController.thisUser.username}. Please select the movements you want to add.</p>
+            #{workoutMovementController.setWorkoutId(workoutController.thisWorkout.id)}
+            <h:form>
+                 <h:selectOneMenu value="#{movementController.thisMovement.id}">
+                     <f:selectItems value="#{movementController.movements}" var="m" itemValue="#{m.id}" itemLabel="#{m.movementName}" />
+                    #{workoutMovementController.setMovementId(m.id)}
+                </h:selectOneMenu>
+                <label>Sets<h:inputText value="#{workoutMovementController.thisWorkoutMovement.sets}" /></label>
+                <label>Reps<h:inputText value="#{workoutMovementController.thisWorkoutMovement.reps}" /></label>
+                <label>Weight<h:inputText value="#{workoutMovementController.thisWorkoutMovement.weight}" /></label>
+                <h:commandButton value="Add Movement" action="#{workoutMovementController.addWorkoutMovement()}" />
+            </h:form>
+            <h:button value="View Stuff" outcome="testing" />
+            </c:if>
+            <c:if test="#{!login.loggedIn}">
+                <h1>Please Login to view this Page</h1>
+                <p>Welcome #{userController.thisUser.username}. Please Fill out the form to make a workout. #{login.currentUser.username} #{login.loggedIn}</p>
+                <h:button value="Login" outcome="logIn" />
+            </c:if>
+    </h:body>
+</html>
+

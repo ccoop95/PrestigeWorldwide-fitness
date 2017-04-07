@@ -71,14 +71,17 @@ public class WorkoutController {
     public void setThisWorkout(Workouts currentWorkout){
         this.thisWorkout = currentWorkout;
     }
-    
+    public void setUserId(int userId){
+        thisWorkout.userId = userId;
+    }
     public String viewWorkout(Workouts workout) {
         thisWorkout = workout;
         return "viewWorkout";
     }
       
-    public String editWorkout(){
-        return "editPost";
+    public String addMovements(int id) {
+        thisWorkout = getWorkoutById(id);
+        return "addMovements";
     }
     
     public String cancelWorkout(){

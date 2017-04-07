@@ -6,6 +6,7 @@
 package fitness;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -24,6 +25,7 @@ import javax.inject.Named;
 @ApplicationScoped
 public class WorkoutMovementController {
     private List<WorkoutMovements> workoutMovements = new ArrayList<>();
+    private List<WorkoutMovements> movementsInWorkout = new ArrayList<>();
     private WorkoutMovements thisWorkoutMovement = new WorkoutMovements();
     
     public WorkoutMovementController(){
@@ -53,23 +55,22 @@ public class WorkoutMovementController {
         return workoutMovements;
     }
     
-    public WorkoutMovements getWorkoutMovementsByWorkoutId(int id){
+    public void getWorkoutMovementsByWorkoutId(int id){
         try (Connection conn = DBUtils.getConnection()) {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM workoutMovements WHERE workoutId = " + id);
             while (rs.next()) {
                 WorkoutMovements wm = new WorkoutMovements();
                 wm.setMovementId(rs.getInt("movementId"));
-                wm.setSets(rs.getInt("reps"));
-                wm.setReps(rs.getInt("sets"));
+                wm.setSets(rs.getInt("sets"));
+                wm.setReps(rs.getInt("reps"));
                 wm.setWeight(rs.getDouble("weight"));
                 wm.setWorkoutId(rs.getInt("workoutId"));                
-                thisWorkoutMovement = wm;
+                movementsInWorkout.add(wm);
             }
         } catch (SQLException ex) {
             Logger.getLogger(WorkoutMovementController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return thisWorkoutMovement;
     }
 
     public WorkoutMovements getThisWorkoutMovement() {
@@ -79,6 +80,27 @@ public class WorkoutMovementController {
     public void setThisWorkoutMovement(WorkoutMovements thisWorkoutMovement) {
         this.thisWorkoutMovement = thisWorkoutMovement;
     }
-    
+    public void setWorkoutId(int workoutId){
+        this.thisWorkoutMovement.workoutId = workoutId;
+    }
+    public void setMovementId(int movementId){
+        this.thisWorkoutMovement.movementId = movementId;
+    }
+    public String addWorkoutMovement(){
+        try (Connection conn = DBUtils.getConnection()) {
+            String sql = "INSERT INTO workoutMovements (movementId, wSets, wReps, weight, workoutId) VALUES(?,?,?,?,?)";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, thisWorkoutMovement.movementId);
+            pstmt.setInt(2, thisWorkoutMovement.sets);
+            pstmt.setInt(3, thisWorkoutMovement.reps);
+            pstmt.setDouble(4, thisWorkoutMovement.weight);
+            pstmt.setInt(5, thisWorkoutMovement.workoutId);
+            pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(WorkoutMovements.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        getWorkoutMovementsFromDB();
+        return "viewWorkout";
+    }
     
 }

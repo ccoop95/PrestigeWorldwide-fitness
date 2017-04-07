@@ -11,15 +11,8 @@
         <c:if test="#{login.loggedIn}">
             #{userController.setThisUser(login.currentUser)}
             <p>Welcome #{userController.thisUser.username} your user id is #{userController.thisUser.id}</p>
-            
-                 <h:button value="Add New Movement" outcome="newMovement" />
-                 <h:button value="Add New Workout" outcome="createWorkout" />
-                 <h:button value="View Stuff" outcome="testing" />
-                 <h:form><h:commandButton value="Logout" action="#{login.logout()}" /></h:form>
-                 
                  <h:form>
-                     <c:set var="userId" value="#{login.currentUser.id}" />
-                     <h:dataTable value="#{workoutController.getMyWorkouts(userController.thisUser.id)}" var="w">
+                     <h:dataTable value="#{workoutController.thisWorkout}" var="w">
                         <h:column>
                             <f:facet name="header">ID</f:facet>
                                 <p>#{w.id}</p>
@@ -37,14 +30,13 @@
                             <p>#{w.description}</p>
                         </h:column>
                         <h:column>
-                            <f:facet name="header">UserID</f:facet>
-                            <p>#{w.userId}</p>
-                        </h:column>
-                        <h:column>
                             <h:commandButton value="Add Movements" action="#{workoutController.addMovements(w.id)}"/>
                         </h:column>
                     </h:dataTable>
                 </h:form>
+            <h:button value="View Stuff" outcome="testing" />
+            <p>Current Movements In The Workout</p>
+            
             </c:if>
             <c:if test="#{!login.loggedIn}">
                 <h1>Please Login to view this Page</h1>
