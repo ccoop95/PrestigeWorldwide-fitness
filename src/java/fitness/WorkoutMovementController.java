@@ -52,4 +52,33 @@ public class WorkoutMovementController {
     public List<WorkoutMovements> getWorkoutMovements() {
         return workoutMovements;
     }
+    
+    public WorkoutMovements getWorkoutMovementsByWorkoutId(int id){
+        try (Connection conn = DBUtils.getConnection()) {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM workoutMovements WHERE workoutId = " + id);
+            while (rs.next()) {
+                WorkoutMovements wm = new WorkoutMovements();
+                wm.setMovementId(rs.getInt("movementId"));
+                wm.setSets(rs.getInt("reps"));
+                wm.setReps(rs.getInt("sets"));
+                wm.setWeight(rs.getDouble("weight"));
+                wm.setWorkoutId(rs.getInt("workoutId"));                
+                thisWorkoutMovement = wm;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(WorkoutMovementController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return thisWorkoutMovement;
+    }
+
+    public WorkoutMovements getThisWorkoutMovement() {
+        return thisWorkoutMovement;
+    }
+
+    public void setThisWorkoutMovement(WorkoutMovements thisWorkoutMovement) {
+        this.thisWorkoutMovement = thisWorkoutMovement;
+    }
+    
+    
 }

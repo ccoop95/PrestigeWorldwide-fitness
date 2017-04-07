@@ -55,6 +55,22 @@ public class MovementController {
         return thisMovement;
     }
     
+    public Movements getMovementById(int id){
+        try (Connection conn = DBUtils.getConnection()) {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM movements WHERE id = " + id);
+            while (rs.next()) {
+                Movements m = new Movements();
+                m.setId(rs.getInt("id"));
+                m.setMovementName(rs.getString("movementName"));                
+                thisMovement = m;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MovementController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return thisMovement;
+    }
+     
     public void setThisMovement(Movements thisMovement) {
         this.thisMovement = thisMovement;
     }
