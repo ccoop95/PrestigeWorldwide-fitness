@@ -107,36 +107,6 @@ public class WorkoutController {
         return "testing";
     }
     
-    public String saveWorkout(Users user) {
-        try (Connection conn = DBUtils.getConnection()) {
-            // If there's a current post, update rather than insert
-            if (thisWorkout.getId() >= 0) {
-                String sql = "UPDATE workouts SET workoutName = ?, category = ?, description = ?, userId= ?, where id = ?";
-                PreparedStatement pstmt = conn.prepareStatement(sql);
-                pstmt.setString(1, thisWorkout.getWorkoutName());
-                pstmt.setString(2, thisWorkout.getCategory());
-                pstmt.setString(3, thisWorkout.getDescription());
-                pstmt.setInt(4, thisWorkout.getUserId());
-                pstmt.setInt(5, thisWorkout.getId());
-                System.out.println("Update: " + pstmt.executeUpdate());
-            } else {
-                String sql = "INSERT INTO posts (workoutName, category, descrption, userId) VALUES (?,?,?,?)";
-                PreparedStatement pstmt = conn.prepareStatement(sql);
-                pstmt.setString(1, thisWorkout.getWorkoutName());
-                pstmt.setString(2, thisWorkout.getCategory());
-                pstmt.setString(3, thisWorkout.getDescription());
-                pstmt.setInt(4, user.getId());
-                System.out.println("Insert: " + pstmt.executeUpdate());
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(WorkoutController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        getWorkoutsFromDB();
-        // Update the currentPost so that its details appear after navigation
-        thisWorkout = getWorkoutByTitle(thisWorkout.getWorkoutName());
-        return "viewWorkout";
-    }
-    
     public Workouts getWorkoutById(int id){
         for (Workouts w : workouts) {
             if (w.getId() == id) {
