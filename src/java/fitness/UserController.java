@@ -107,7 +107,7 @@ public class UserController {
             Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
         }
         getUsersFromDB();
-        return "testing";
+        return "index";
     }
 }
 /*

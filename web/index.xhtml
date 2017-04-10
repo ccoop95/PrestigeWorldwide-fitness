@@ -9,6 +9,7 @@
     </h:head>
     <h:body>
         <c:if test="#{login.loggedIn}">
+            #{workoutMovementController.reloadWorkoutMovements()}
             #{userController.setThisUser(login.currentUser)}
             <p>Welcome #{userController.thisUser.username} your user id is #{userController.thisUser.id}</p>
             

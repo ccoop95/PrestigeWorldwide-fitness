@@ -64,6 +64,9 @@ public class WorkoutMovementController {
         this.movementsInWorkout = null;
     }
     
+    public void reloadWorkoutMovements(){
+        getWorkoutMovementsFromDB();
+    }
     
     private void getWorkoutMovementsByWorkoutId(int id) {
         try (Connection conn = DBUtils.getConnection()) {

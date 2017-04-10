@@ -107,6 +107,11 @@ public class WorkoutController {
         return "testing";
     }
     
+    public String delete(int id){
+        deleteWorkout(id);
+        return "index";
+    }
+    
     public Workouts getWorkoutById(int id){
         for (Workouts w : workouts) {
             if (w.getId() == id) {
@@ -143,5 +148,19 @@ public class WorkoutController {
             Logger.getLogger(WorkoutController.class.getName()).log(Level.SEVERE, null, ex);
             myWorkouts = new ArrayList<>();
         }
+    }
+    
+    private void deleteWorkout(int workoutId){
+        try (Connection conn = DBUtils.getConnection()) {
+            String sql = "DELETE FROM workoutMovements WHERE workoutId = " + workoutId;
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.executeUpdate();
+            sql = "DELETE FROM workouts WHERE id = " + workoutId;
+            pstmt = conn.prepareStatement(sql);
+            pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Workouts.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        getWorkoutsFromDB();
     }
 }
