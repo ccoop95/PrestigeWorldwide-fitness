@@ -132,7 +132,7 @@ public class WorkoutMovementController {
             Logger.getLogger(WorkoutMovements.class.getName()).log(Level.SEVERE, null, ex);
         }
         getWorkoutMovementsFromDB();
-        return "viewWorkout";
+        return "editWorkout";
     }
     
 }

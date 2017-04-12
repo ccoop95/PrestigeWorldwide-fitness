@@ -9,18 +9,10 @@
     </h:head>
     <h:body>
         <c:if test="#{login.loggedIn}">
-            #{workoutMovementController.reloadWorkoutMovements()}
             #{userController.setThisUser(login.currentUser)}
             <p>Welcome #{userController.thisUser.username} your user id is #{userController.thisUser.id}</p>
-            
-                 <h:button value="Add New Movement" outcome="newMovement" />
-                 <h:button value="Add New Workout" outcome="createWorkout" />
-                 <h:button value="View Stuff" outcome="testing" />
-                 <h:form><h:commandButton value="Logout" action="#{login.logout()}" /></h:form>
-                 
                  <h:form>
-                     <c:set var="userId" value="#{login.currentUser.id}" />
-                     <h:dataTable value="#{workoutController.getMyWorkouts(userController.thisUser.id)}" var="w">
+                     <h:dataTable value="#{workoutController.thisWorkout}" var="w">
                         <h:column>
                             <f:facet name="header">ID</f:facet>
                                 <p>#{w.id}</p>
@@ -36,52 +28,38 @@
                         <h:column>
                             <f:facet name="header">Description</f:facet>
                             <p>#{w.description}</p>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">UserID</f:facet>
-                            <p>#{w.userId}</p>
                         </h:column>
                         <h:column>
                             <h:commandButton value="Add Movements" action="#{workoutController.addMovements(w.id)}"/>
                         </h:column>
-                        <h:column>
-                            <h:commandButton value="View Workout" action="#{workoutController.viewWorkout(w.id)}"/>
-                        </h:column>
-                        <h:column>
-                            <h:commandButton value="Edit Workout" action="#{workoutController.editWorkout(w.id)}"/>
+                         <h:column>
+                             <h:commandButton value="Delete Workout" action="#{workoutController.delete(w.id)}"/>
                         </h:column>
                     </h:dataTable>
                 </h:form>
-                 <h2>All Workouts</h2>
-                 <h:form>
-                     <c:set var="userId" value="#{login.currentUser.id}" />
-                     <h:dataTable value="#{workoutController.getOtherWorkouts(userController.thisUser.id)}" var="w">
+            <h:button value="View Stuff" outcome="testing" />
+            <p>Current Movements In The Workout</p>
+            <h:form>
+                <h:dataTable value="#{workoutMovementController.getMovementsInWorkout(workoutController.thisWorkout.id)}" var="wm">
                         <h:column>
-                            <f:facet name="header">ID</f:facet>
-                                <p>#{w.id}</p>
+                            <f:facet name="header">Movement Name</f:facet>
+                            <p>#{movementController.getMovementById(wm.movementId).movementName}</p>
                         </h:column>
                         <h:column>
-                            <f:facet name="header">Name</f:facet>
-                            <p>#{w.workoutName}</p>
+                            <f:facet name="header">Sets</f:facet>
+                            <p>#{wm.sets}</p>
                         </h:column>
                         <h:column>
-                            <f:facet name="header">Category</f:facet>
-                            <p>#{w.category}</p>
+                            <f:facet name="header">Reps</f:facet>
+                            <p>#{wm.reps}</p>
                         </h:column>
                         <h:column>
-                            <f:facet name="header">Description</f:facet>
-                            <p>#{w.description}</p>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Made By</f:facet>
-                            <p>#{userController.getUsernameById(w.userId)}</p>
-                        </h:column>
-                        <h:column>
-                            <h:commandButton value="View Workout" action="#{workoutController.viewWorkout(w.id)}"/>
+                            <f:facet name="header">Weight</f:facet>
+                            <p>#{wm.weight}kg</p>
                         </h:column>
                     </h:dataTable>
                 </h:form>
-                 
+            <h:button value="Home" outcome="index" />
             </c:if>
             <c:if test="#{!login.loggedIn}">
                 <h1>Please Login to view this Page</h1>

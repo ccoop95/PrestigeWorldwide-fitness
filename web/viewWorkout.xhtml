@@ -11,32 +11,7 @@
         <c:if test="#{login.loggedIn}">
             #{userController.setThisUser(login.currentUser)}
             <p>Welcome #{userController.thisUser.username} your user id is #{userController.thisUser.id}</p>
-                 <h:form>
-                     <h:dataTable value="#{workoutController.thisWorkout}" var="w">
-                        <h:column>
-                            <f:facet name="header">ID</f:facet>
-                                <p>#{w.id}</p>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Name</f:facet>
-                            <p>#{w.workoutName}</p>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Category</f:facet>
-                            <p>#{w.category}</p>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Description</f:facet>
-                            <p>#{w.description}</p>
-                        </h:column>
-                        <h:column>
-                            <h:commandButton value="Add Movements" action="#{workoutController.addMovements(w.id)}"/>
-                        </h:column>
-                         <h:column>
-                             <h:commandButton value="Delete Workout" action="#{workoutController.delete(w.id)}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:form>
+            <h2>#{workoutController.thisWorkout.workoutName}</h2>
             <h:button value="View Stuff" outcome="testing" />
             <p>Current Movements In The Workout</p>
             <h:form>
@@ -59,6 +34,7 @@
                         </h:column>
                     </h:dataTable>
                 </h:form>
+            <h:button value="Home" outcome="index" />
             </c:if>
             <c:if test="#{!login.loggedIn}">
                 <h1>Please Login to view this Page</h1>

@@ -26,6 +26,7 @@ import javax.inject.Named;
 public class WorkoutController {
     private List<Workouts> workouts = new ArrayList<>();
     private List<Workouts> myWorkouts = new ArrayList<>();
+    private List<Workouts> notMyWorkouts = new ArrayList<>();
     private Workouts thisWorkout = new Workouts();
     private static WorkoutController instance = new WorkoutController();
     
@@ -61,6 +62,11 @@ public class WorkoutController {
         getMyWorkoutsFromDB(userId);
         return myWorkouts;
     }
+    
+    public List<Workouts> getOtherWorkouts(int userId){
+        getOthersWorkoutsFromDB(userId);
+        return notMyWorkouts;
+    }
 
     public static WorkoutController getInstance() {
         return instance;
@@ -78,7 +84,10 @@ public class WorkoutController {
         thisWorkout = getWorkoutById(id);
         return "viewWorkout";
     }
-      
+     public String editWorkout(int id) {
+        thisWorkout = getWorkoutById(id);
+        return "editWorkout";
+    }
     public String addMovements(int id) {
         thisWorkout = getWorkoutById(id);
         return "addMovements";
@@ -147,6 +156,26 @@ public class WorkoutController {
         } catch (SQLException ex) {
             Logger.getLogger(WorkoutController.class.getName()).log(Level.SEVERE, null, ex);
             myWorkouts = new ArrayList<>();
+        }
+    }
+    
+    private void getOthersWorkoutsFromDB(int userId) {
+        try (Connection conn = DBUtils.getConnection()) {
+            notMyWorkouts = new ArrayList<>();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM workouts WHERE userId <> " + userId);
+            while (rs.next()) {
+                Workouts w = new Workouts();
+                w.setId(rs.getInt("id"));
+                w.setWorkoutName(rs.getString("workoutName"));
+                w.setCategory(rs.getString("category"));
+                w.setDescription(rs.getString("description"));
+                w.setUserId(rs.getInt("userId"));
+                notMyWorkouts.add(w);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(WorkoutController.class.getName()).log(Level.SEVERE, null, ex);
+            notMyWorkouts = new ArrayList<>();
         }
     }
     
