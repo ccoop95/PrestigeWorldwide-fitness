@@ -92,17 +92,17 @@ public class UserController {
     
     public String addUser() {
         try (Connection conn = DBUtils.getConnection()) {
-            String passhash = DBUtils.hash(thisUser.password);
-            String sql = "INSERT INTO users (username, password, email, firstName, lastName, height, weight) VALUES(?,?,?,?,?,?,?)";
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, thisUser.username);
-            pstmt.setString(2, passhash);
-            pstmt.setString(3, thisUser.email);
-            pstmt.setString(4, thisUser.firstName);
-            pstmt.setString(5, thisUser.lastName);
-            pstmt.setDouble(6, thisUser.height);
-            pstmt.setDouble(7, thisUser.weight);
-            pstmt.executeUpdate();
+                String passhash = DBUtils.hash(thisUser.password);
+                String sql = "INSERT INTO users (username, password, email, firstName, lastName, height, weight) VALUES(?,?,?,?,?,?,?)";
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, thisUser.username);
+                pstmt.setString(2, passhash);
+                pstmt.setString(3, thisUser.email);
+                pstmt.setString(4, thisUser.firstName);
+                pstmt.setString(5, thisUser.lastName);
+                pstmt.setDouble(6, thisUser.height);
+                pstmt.setDouble(7, thisUser.weight);
+                pstmt.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
         }
