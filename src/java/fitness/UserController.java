@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
+import javax.swing.JOptionPane; 
 
 /**
  *
@@ -27,6 +28,8 @@ public class UserController {
     private List<Users> users = new ArrayList<>();
     private Users thisUser = new Users();
     private static UserController instance = new UserController();
+    boolean usernameUnique = true;
+    boolean emailUnique = true;
     
     public UserController(){
         getUsersFromDB();
@@ -90,19 +93,42 @@ public class UserController {
         return -1;
     }
     
+    public boolean isUsernameUnique(){
+        return usernameUnique;
+    }
+    public boolean isEmailUnique(){
+        return emailUnique;
+    }
+    
     public String addUser() {
         try (Connection conn = DBUtils.getConnection()) {
-                String passhash = DBUtils.hash(thisUser.password);
-                String sql = "INSERT INTO users (username, password, email, firstName, lastName, height, weight) VALUES(?,?,?,?,?,?,?)";
-                PreparedStatement pstmt = conn.prepareStatement(sql);
-                pstmt.setString(1, thisUser.username);
-                pstmt.setString(2, passhash);
-                pstmt.setString(3, thisUser.email);
-                pstmt.setString(4, thisUser.firstName);
-                pstmt.setString(5, thisUser.lastName);
-                pstmt.setDouble(6, thisUser.height);
-                pstmt.setDouble(7, thisUser.weight);
-                pstmt.executeUpdate();
+            emailUnique = true;
+            usernameUnique = true;
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE username = \""+ thisUser.username +"\"");
+            if (!rs.next()){
+                Statement stmt2 = conn.createStatement();
+                ResultSet rs2 = stmt2.executeQuery("SELECT * FROM users WHERE email = \""+ thisUser.email +"\"");
+                if (!rs2.next()){
+                    String passhash = DBUtils.hash(thisUser.password);
+                    String sql = "INSERT INTO users (username, password, email, firstName, lastName, height, weight) VALUES(?,?,?,?,?,?,?)";
+                    PreparedStatement pstmt = conn.prepareStatement(sql);
+                    pstmt.setString(1, thisUser.username);
+                    pstmt.setString(2, passhash);
+                    pstmt.setString(3, thisUser.email);
+                    pstmt.setString(4, thisUser.firstName);
+                    pstmt.setString(5, thisUser.lastName);
+                    pstmt.setDouble(6, thisUser.height);
+                    pstmt.setDouble(7, thisUser.weight);
+                    pstmt.executeUpdate();
+                }else{
+                    emailUnique = false;
+                    return "register";
+                }
+            }else{
+                usernameUnique = false;
+                return "register";
+            }
         } catch (SQLException ex) {
             Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
         }
