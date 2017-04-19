@@ -9,6 +9,7 @@
     <h:body>
         <h:button value="New Movement" outcome="newMovement" />
         <h:button value="Index" outcome="index" />
+        <h:form><h:commandButton class="cmdBtn" value="Logout" action="#{login.logout()}" /></h:form>
         <h:form>
             <h:dataTable value="#{movementController.movements}" var="m">
             <h:column>

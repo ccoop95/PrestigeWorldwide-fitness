@@ -2,23 +2,37 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:b="http://bootsfaces.net/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Register</title>
+        <link rel="stylesheet" type="text/css" href="styles.css"></link>
     </h:head>
-    <h:body>
-        <h:form>
-            <p>Username: <h:inputText value="#{userController.thisUser.username}" /></p>
-            <p>Password: <h:inputSecret value="#{userController.thisUser.password}" /></p>
-            <p>Email: <h:inputText value="#{userController.thisUser.email}" /></p>
-            <p>First Name: <h:inputText value="#{userController.thisUser.firstName}" /></p>
-            <p>Last Name: <h:inputText value="#{userController.thisUser.lastName}" /></p>
-            <p>Height in Centimeters: <h:inputText value="#{userController.thisUser.height}" /></p>
-            <p>Weight in Kilograms: <h:inputText value="#{userController.thisUser.weight}" /></p>
-            <h:commandButton value="AddUser" action="#{userController.addUser()}" />
-        </h:form>
-        <c:if test="#{!userController.usernameUnique}"><h4>Username already exists</h4></c:if>
-        <c:if test="#{!userController.emailUnique}"><h4>Email already exists</h4></c:if>
+    <h:body class="body">
+        <b:container>
+            <b:column span="3"></b:column>
+            <b:column span="6" class="contentContainer">
+                <b:row>
+                    <div class="topLogo">
+                        <a href="http://i.imgur.com/nxWjCI6.png"><img src="http://i.imgur.com/nxWjCI6.png"/></a>
+                    </div>
+                </b:row>
+                <h:form>
+                    <b:row><p>Username</p></b:row>
+                    <b:row><h:inputText styleClass="textBlack" value="#{userController.thisUser.username}" /></b:row>
+                    <b:row><p>Password</p><h:inputSecret styleClass="textBlack" value="#{userController.thisUser.password}" /></b:row>
+                    <b:row><p>Email</p><h:inputText styleClass="textBlack" value="#{userController.thisUser.email}" /></b:row>
+                    <b:row><p>First Name</p><h:inputText styleClass="textBlack" value="#{userController.thisUser.firstName}" /></b:row>
+                    <b:row><p>Last Name</p><h:inputText styleClass="textBlack" value="#{userController.thisUser.lastName}" /></b:row>
+                    <b:row><p>Height in Centimeters</p><h:inputText styleClass="textBlack" value="#{userController.thisUser.height}" /></b:row>
+                    <b:row><p>Weight in Kilograms</p><h:inputText styleClass="textBlack" value="#{userController.thisUser.weight}" /></b:row>
+                    <b:row><h:commandButton class="cmdBtn" value="Submit" action="#{userController.addUser()}" /></b:row>
+                </h:form>
+            </b:column>
+            <b:column span="3"></b:column>
+            <c:if test="#{!userController.usernameUnique}"><h4>Username already exists</h4></c:if>
+            <c:if test="#{!userController.emailUnique}"><h4>Email already exists</h4></c:if>
+        </b:container>
     </h:body>
 </html>
 

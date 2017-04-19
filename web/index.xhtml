@@ -3,91 +3,90 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:b="http://bootsfaces.net/ui">>
     <h:head>
-        <title>Facelet Title</title>
+        <title>Home</title>
+        <link rel="stylesheet" type="text/css" href="styles.css"></link>
     </h:head>
-    <h:body>
-        <c:if test="#{login.loggedIn}">
-            #{workoutMovementController.reloadWorkoutMovements()}
-            #{userController.setThisUser(login.currentUser)}
-            <p>Welcome #{userController.thisUser.username} your user id is #{userController.thisUser.id}</p>
-            
-                 <h:button value="Add New Movement" outcome="newMovement" />
-                 <h:button value="Add New Workout" outcome="createWorkout" />
-                 <h:button value="View Stuff" outcome="testing" />
-                 <h:form><h:commandButton value="Logout" action="#{login.logout()}" /></h:form>
-                 
-                 <h:form>
-                     <c:set var="userId" value="#{login.currentUser.id}" />
-                     <h:dataTable value="#{workoutController.getMyWorkouts(userController.thisUser.id)}" var="w">
-                        <h:column>
-                            <f:facet name="header">ID</f:facet>
-                                <p>#{w.id}</p>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Name</f:facet>
-                            <p>#{w.workoutName}</p>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Category</f:facet>
-                            <p>#{w.category}</p>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Description</f:facet>
-                            <p>#{w.description}</p>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">UserID</f:facet>
-                            <p>#{w.userId}</p>
-                        </h:column>
-                        <h:column>
-                            <h:commandButton value="Add Movements" action="#{workoutController.addMovements(w.id)}"/>
-                        </h:column>
-                        <h:column>
-                            <h:commandButton value="View Workout" action="#{workoutController.viewWorkout(w.id)}"/>
-                        </h:column>
-                        <h:column>
-                            <h:commandButton value="Edit Workout" action="#{workoutController.editWorkout(w.id)}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:form>
-                 <h2>All Workouts</h2>
-                 <h:form>
-                     <c:set var="userId" value="#{login.currentUser.id}" />
-                     <h:dataTable value="#{workoutController.getOtherWorkouts(userController.thisUser.id)}" var="w">
-                        <h:column>
-                            <f:facet name="header">ID</f:facet>
-                                <p>#{w.id}</p>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Name</f:facet>
-                            <p>#{w.workoutName}</p>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Category</f:facet>
-                            <p>#{w.category}</p>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Description</f:facet>
-                            <p>#{w.description}</p>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Made By</f:facet>
-                            <p>#{userController.getUsernameById(w.userId)}</p>
-                        </h:column>
-                        <h:column>
-                            <h:commandButton value="View Workout" action="#{workoutController.viewWorkout(w.id)}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:form>
-                 
-            </c:if>
-            <c:if test="#{!login.loggedIn}">
-                <h1>Please Login to view this Page</h1>
-                <h:button value="Login" outcome="logIn" />
-                <h:button value="Register" outcome="register" />
-            </c:if>
+    <h:body class="body">
+        <b:container>
+            <b:column span="3"></b:column>
+            <b:column span="6" class="contentContainer">
+                <c:if test="#{login.loggedIn}">
+                    #{workoutMovementController.reloadWorkoutMovements()}
+                    #{userController.setThisUser(login.currentUser)}
+                    <h1>Welcome #{userController.thisUser.username}</h1>
+                    <h3>Your Workouts</h3>
+                    <b:row>
+                        <b:column span="3"></b:column>
+                        <b:column span="6">
+                            <h:form class="workoutForm">
+                                <c:set var="userId" value="#{login.currentUser.id}" />
+                                <h:dataTable value="#{workoutController.getMyWorkouts(userController.thisUser.id)}" var="w">
+
+                                    <h:column>
+                                        <f:facet name="header">Name</f:facet>
+                                        <p>#{w.workoutName}</p>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Category</f:facet>
+                                        <p>#{w.category}</p>
+                                    </h:column>
+                                    <h:column>
+                                        <h:commandButton class="cmdBtn" value="View Workout" action="#{workoutController.viewWorkout(w.id)}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <h:commandButton class="cmdBtn" value="Edit Workout" action="#{workoutController.editWorkout(w.id)}"/>
+                                    </h:column>
+                                </h:dataTable>
+                            </h:form>
+                        </b:column>
+                        <b:column span="3"></b:column>
+                    </b:row>
+                    <h3>Other Workouts</h3>
+                    <b:row>
+                        <b:column span="2"></b:column>
+                        <b:column span="9">
+                            <h:form>
+                                <c:set var="userId" value="#{login.currentUser.id}" />
+                                <h:dataTable value="#{workoutController.getOtherWorkouts(userController.thisUser.id)}" var="w">
+                                    <h:column>
+                                        <f:facet name="header">Name</f:facet>
+                                        <p>#{w.workoutName}</p>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Category</f:facet>
+                                        <p>#{w.category}</p>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Made By</f:facet>
+                                        <p>#{userController.getUsernameById(w.userId)}</p>
+                                    </h:column>
+                                    <h:column>
+                                        <h:commandButton class="cmdBtn" value="View Workout" action="#{workoutController.viewWorkout(w.id)}"/>
+                                    </h:column>
+                                </h:dataTable>
+                            </h:form>
+                        </b:column>
+                        <b:column span="1"></b:column>
+                    </b:row>
+                    <b:row class="navBar">
+                        <h:button class="cmdBtn toolBtn" value="Workouts" outcome="index" />
+                        <h:button class="cmdBtn toolBtn" value="New Workout" outcome="createWorkout" />
+                        <h:button class="cmdBtn toolBtn" value="New Movement" outcome="newMovement" />
+                        <h:button class="cmdBtn toolBtn" value="Settings" outcome="testing" />
+                    </b:row>
+                    
+                </c:if>
+                <c:if test="#{!login.loggedIn}">
+                    <h1>Please Login to view this Page</h1>
+                    <h:button class="cmdBtn " value="Login" outcome="logIn" />
+                    <h:button class="cmdBtn" value="Register" outcome="register" />
+                </c:if>
+            </b:column>
+            <b:column span="3"></b:column>
+        </b:container>
     </h:body>
 </html>
 

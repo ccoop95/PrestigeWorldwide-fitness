@@ -1,0 +1,62 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 18-Apr-2017, 11:06:22 PM
+    Author     : c0668586
+*/
+.body {
+    background-color: #1f1f1f;
+   
+}
+
+.contentContainer {
+   
+    text-align: center;
+    margin-top: 50px;
+    height: 750px;
+    border-radius: 20px;
+    color: white;
+    background-color: #2e2e2e;
+}
+
+.topLogo {
+    padding-top: 75px;
+    padding-bottom: 25px;
+}
+
+.cmdBtn {
+    color: black;
+    background-color: #c2e96b;
+    
+}
+
+.toolBtn {
+    height: 40px;
+    width: 142px;
+}
+
+.navBar {
+    position: absolute;
+    bottom: 0;
+}
+
+.textBlack {
+    color: black;
+}
+
+
+/* login */
+.loginButton {
+    padding-top: 25px;
+}
+
+/* index */ 
+.workoutForm {
+    text-align: center;
+}
+
+/* view workout */
+

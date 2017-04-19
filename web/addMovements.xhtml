@@ -3,30 +3,49 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:b="http://bootsfaces.net/ui">
     <h:head>
         <title>Add Movements</title>
+        <link rel="stylesheet" type="text/css" href="styles.css"></link>
     </h:head>
-    <h:body>
-        <c:if test="#{login.loggedIn}">
-            <p>Welcome #{userController.thisUser.username}. Please select the movements you want to add.</p>
-            #{workoutMovementController.setWorkoutId(workoutController.thisWorkout.id)}
-            <h:form>
-                 <h:selectOneMenu value="#{workoutMovementController.thisWorkoutMovement.movementId}">
-                     <f:selectItems value="#{movementController.movements}" var="m" itemValue="#{m.id}" itemLabel="#{m.movementName}" />
-                </h:selectOneMenu>
-                <label>Sets<h:inputText value="#{workoutMovementController.thisWorkoutMovement.sets}" /></label>
-                <label>Reps<h:inputText value="#{workoutMovementController.thisWorkoutMovement.reps}" /></label>
-                <label>Weight<h:inputText value="#{workoutMovementController.thisWorkoutMovement.weight}" /></label>
-                <h:commandButton value="Add Movement" action="#{workoutMovementController.addWorkoutMovement()}" />
-            </h:form>
-            <h:button value="View Stuff" outcome="testing" />
-            </c:if>
-            <c:if test="#{!login.loggedIn}">
-                <h1>Please Login to view this Page</h1>
-                <p>Welcome #{userController.thisUser.username}. Please Fill out the form to make a workout. #{login.currentUser.username} #{login.loggedIn}</p>
-                <h:button value="Login" outcome="logIn" />
-            </c:if>
+    <h:body class="body">
+        <b:container>
+            <b:column span="3"></b:column>
+            <b:column span="6" class="contentContainer">
+                <c:if test="#{login.loggedIn}">
+                    <h1>Select the movement</h1>
+                    #{workoutMovementController.setWorkoutId(workoutController.thisWorkout.id)}
+                    <h:form>
+                        <b:row>
+                            <h:selectOneMenu value="#{workoutMovementController.thisWorkoutMovement.movementId}">
+                                <f:selectItems class="textBlack" value="#{movementController.movements}" var="m" itemValue="#{m.id}" itemLabel="#{m.movementName}" />
+                            </h:selectOneMenu>
+                        </b:row>
+                        <b:row><p>Sets</p></b:row>
+                        <b:row><h:inputText styleClass="textBlack" value="#{workoutMovementController.thisWorkoutMovement.sets}" /></b:row>
+                        <b:row><p>Reps</p></b:row>
+                        <b:row><h:inputText styleClass="textBlack" value="#{workoutMovementController.thisWorkoutMovement.reps}" /></b:row>
+                        <b:row><p>Weight</p></b:row>
+                        <b:row> <h:inputText styleClass="textBlack" value="#{workoutMovementController.thisWorkoutMovement.weight}" /></b:row>
+                        <b:row><h:commandButton class="cmdBtn" value="Add Movement" action="#{workoutMovementController.addWorkoutMovement()}" /></b:row>
+                    </h:form>
+
+                </c:if>
+                <c:if test="#{!login.loggedIn}">
+                    <h1>Please Login to view this Page</h1>
+                    <p>Welcome #{userController.thisUser.username}. Please Fill out the form to make a workout. #{login.currentUser.username} #{login.loggedIn}</p>
+                    <h:button value="Login" outcome="logIn" />
+                </c:if>
+                <b:row class="navBar">
+                    <h:button class="cmdBtn toolBtn" value="Workouts" outcome="index" />
+                    <h:button class="cmdBtn toolBtn" value="New Workout" outcome="createWorkout" />
+                    <h:button class="cmdBtn toolBtn" value="New Movement" outcome="newMovement" />
+                    <h:button class="cmdBtn toolBtn" value="Settings" outcome="testing" />
+                </b:row>
+            </b:column>
+            <b:column span="3"></b:column>
+        </b:container>
     </h:body>
 </html>
 

@@ -1,17 +1,33 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>New Movement</title>
+        <link rel="stylesheet" type="text/css" href="styles.css"></link>
     </h:head>
-    <h:body>
-        <h1>Add a new Movement to our database</h1>
-        <h:form>
-            <p>Movement NAme: <h:inputText value="#{movementController.thisMovement.movementName}" /></p>
-            <h:commandButton value="Add Movement" action="#{movementController.addMovement()}" />
-        </h:form>
-        <h:button value="View Stuff" outcome="testing" />
+    <h:body class="body">
+        <b:container>
+            <b:column span="3"></b:column>
+            <b:column span="6" class="contentContainer">
+
+                <h1>Add a new Movement</h1>
+
+                <h:form>
+                    <b:row><p>Movement Name</p></b:row> 
+                    <b:row><h:inputText styleClass="textBlack" value="#{movementController.thisMovement.movementName}" /></b:row> 
+                    <b:row><h:commandButton class="cmdBtn" value="Add Movement" action="#{movementController.addMovement()}" /></b:row> 
+                </h:form>
+                <b:row class="navBar">
+                    <h:button class="cmdBtn toolBtn" value="Workouts" outcome="index" />
+                    <h:button class="cmdBtn toolBtn" value="New Workout" outcome="createWorkout" />
+                    <h:button class="cmdBtn toolBtn" value="New Movement" outcome="newMovement" />
+                    <h:button class="cmdBtn toolBtn" value="Settings" outcome="testing" />
+                </b:row>
+            </b:column>
+            <b:column span="3"></b:column>
+        </b:container>
     </h:body>
 </html>
 
