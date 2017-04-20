@@ -72,14 +72,21 @@
                         <b:column span="1"></b:column>
                     </b:row>
                     <b:row class="navBar">
+                        <h:form>
                         <h:button class="cmdBtn toolBtn" value="Workouts" outcome="index" />
                         <h:button class="cmdBtn toolBtn" value="New Workout" outcome="createWorkout" />
                         <h:button class="cmdBtn toolBtn" value="New Movement" outcome="newMovement" />
-                        <h:button class="cmdBtn toolBtn" value="Settings" outcome="testing" />
+                        <h:commandButton class="cmdBtn toolBtn" value="Logout" action="#{login.logout}" />
+                        </h:form>
                     </b:row>
                     
                 </c:if>
                 <c:if test="#{!login.loggedIn}">
+                    <b:row>
+                    <div class="topLogo">
+                        <a href="http://i.imgur.com/bkSjnrk.png"><img src="http://i.imgur.com/bkSjnrk.png"/></a>
+                    </div>
+                    </b:row>
                     <h1>Please Login to view this Page</h1>
                     <h:button class="cmdBtn " value="Login" outcome="logIn" />
                     <h:button class="cmdBtn" value="Register" outcome="register" />
